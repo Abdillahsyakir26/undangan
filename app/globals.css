@@ -1,0 +1,107 @@
+@import '@fontsource/cormorant-garamond/400.css';
+@import '@fontsource/cormorant-garamond/500.css';
+@import '@fontsource/cormorant-garamond/600.css';
+@import '@fontsource/cormorant-garamond/400-italic.css';
+@import '@fontsource/jost/300.css';
+@import '@fontsource/jost/400.css';
+@import '@fontsource/jost/500.css';
+@import '@fontsource/great-vibes/400.css';
+@import '@fontsource/amiri/400.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --c-gold: 184 134 74; --c-gold-deep: 140 96 48;
+  --c-sage: 135 145 100; --c-sage-deep: 88 99 66;
+  --c-cream: 250 243 231; --c-cream-deep: 240 227 206; --c-ink: 62 48 34;
+}
+html { scroll-behavior: smooth; -webkit-tap-highlight-color: transparent; }
+body { background: rgb(var(--c-cream)); color: rgb(var(--c-ink)); font-family: Jost, system-ui, sans-serif; overflow-x: hidden; }
+::selection { background: rgb(var(--c-gold) / .3); }
+img { -webkit-user-drag: none; user-select: none; }
+
+@layer components {
+  .paper {
+    background:
+      radial-gradient(1200px 500px at 50% -10%, rgb(255 255 255 / .55), transparent 60%),
+      radial-gradient(900px 600px at 100% 100%, rgb(var(--c-gold) / .10), transparent 60%),
+      radial-gradient(700px 500px at 0% 70%, rgb(var(--c-sage) / .10), transparent 60%),
+      rgb(var(--c-cream));
+  }
+  .paper-deep { background: linear-gradient(180deg, rgb(var(--c-cream-deep) / .75), rgb(var(--c-cream)) 100%); }
+  .paper-sage { background: linear-gradient(180deg, rgb(var(--c-sage) / .16), rgb(var(--c-cream)) 90%); }
+  .card-gold {
+    background: linear-gradient(145deg, rgb(255 255 255 / .75), rgb(var(--c-cream) / .85));
+    border: 1px solid rgb(var(--c-gold) / .35);
+    box-shadow: 0 1px 0 rgb(255 255 255 / .9) inset, 0 18px 40px -22px rgb(var(--c-gold-deep) / .45);
+    border-radius: 1.5rem;
+    backdrop-filter: blur(6px);
+  }
+  .gold-text {
+    background: linear-gradient(100deg, rgb(var(--c-gold-deep)), rgb(var(--c-gold)) 40%, rgb(214 170 100) 55%, rgb(var(--c-gold-deep)));
+    background-size: 200% auto; -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: shimmer 6s linear infinite;
+  }
+  .btn-gold {
+    position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; gap: .5rem;
+    padding: .7rem 1.4rem; border-radius: 999px; font-weight: 500; letter-spacing: .04em; font-size: .9rem;
+    color: #fff; background: linear-gradient(135deg, rgb(var(--c-gold)), rgb(var(--c-gold-deep)));
+    box-shadow: 0 10px 24px -10px rgb(var(--c-gold-deep) / .8);
+    transition: box-shadow .3s, filter .3s;
+  }
+  .btn-gold::after {
+    content: ''; position: absolute; inset: 0; transform: translateX(-120%);
+    background: linear-gradient(100deg, transparent 30%, rgb(255 255 255 / .45) 50%, transparent 70%);
+    animation: sheen 3.6s ease-in-out infinite;
+  }
+  .btn-gold:hover { filter: brightness(1.06); }
+  .btn-gold:disabled { opacity: .6; }
+  .btn-ghost {
+    display: inline-flex; align-items: center; justify-content: center; gap: .5rem; padding: .62rem 1.15rem; border-radius: 999px;
+    font-size: .85rem; font-weight: 500; color: rgb(var(--c-gold-deep)); border: 1px solid rgb(var(--c-gold) / .55);
+    background: rgb(255 255 255 / .5); transition: background .25s, color .25s, border-color .25s;
+  }
+  .btn-ghost:hover { background: rgb(var(--c-gold) / .12); border-color: rgb(var(--c-gold)); }
+  .field {
+    width: 100%; padding: .75rem 1rem; border-radius: .9rem; background: rgb(255 255 255 / .8);
+    border: 1px solid rgb(var(--c-gold) / .35); outline: none; transition: box-shadow .2s, border-color .2s; font-size: 16px;
+  }
+  .field:focus { border-color: rgb(var(--c-gold)); box-shadow: 0 0 0 4px rgb(var(--c-gold) / .15); }
+  .field[aria-invalid='true'] { border-color: #c0564b; }
+}
+
+@keyframes shimmer { to { background-position: 200% center; } }
+@keyframes sheen { 0%, 60% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
+@keyframes swing { 0%, 100% { transform: rotate(-4deg); } 50% { transform: rotate(4deg); } }
+@keyframes sway { 0%, 100% { transform: rotate(-1.6deg) translateY(0); } 50% { transform: rotate(1.6deg) translateY(-2px); } }
+@keyframes drift { 0% { transform: translateX(-14px); } 50% { transform: translateX(14px); } 100% { transform: translateX(-14px); } }
+@keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+@keyframes glow { 0%, 100% { filter: drop-shadow(0 0 6px rgb(255 200 110 / .35)); } 50% { filter: drop-shadow(0 0 18px rgb(255 200 110 / .8)); } }
+@keyframes petal {
+  0% { transform: translate3d(0, -12vh, 0) rotate(0deg); opacity: 0; }
+  10% { opacity: .95; }
+  100% { transform: translate3d(var(--dx, 40px), 108vh, 0) rotate(var(--rot, 540deg)); opacity: .9; }
+}
+@keyframes eq { 0%, 100% { transform: scaleY(.25); } 50% { transform: scaleY(1); } }
+@keyframes ring { 0% { transform: scale(.9); opacity: .6; } 100% { transform: scale(1.7); opacity: 0; } }
+
+.anim-swing { transform-origin: 50% 0; animation: swing 5s ease-in-out infinite; }
+.anim-sway { transform-origin: 50% 100%; animation: sway 6s ease-in-out infinite; }
+.anim-drift { animation: drift 14s ease-in-out infinite; }
+.anim-floaty { animation: floaty 6s ease-in-out infinite; }
+.anim-glow { animation: glow 3.5s ease-in-out infinite; }
+.anim-spin-slow { animation: spin-slow 40s linear infinite; }
+.petal { position: absolute; top: 0; animation: petal linear infinite; will-change: transform; pointer-events: none; }
+.eq-bar { transform-origin: bottom; animation: eq 1s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-swing, .anim-sway, .anim-drift, .anim-floaty, .anim-glow, .anim-spin-slow, .petal, .eq-bar, .gold-text, .btn-gold::after { animation: none !important; }
+  html { scroll-behavior: auto; }
+}
+.lock { overflow: hidden; height: 100dvh; touch-action: none; }
+
+.env-wrap { display: none; }
+@media (min-width: 360px) and (min-height: 690px) { .env-wrap { display: block; } }
